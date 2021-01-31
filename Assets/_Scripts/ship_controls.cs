@@ -12,15 +12,37 @@ public class ship_controls : MonoBehaviour
 
     private float Sail;
     private float Tack;
+    private bool act = true;
 
     private void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
         spray.SetActive(false);
     }
 
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (act = true)
+            {
+                act = false;
+            }
+            else
+            {
+                act = true;
+            }
+        }
+
+
+        if (act==true)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+        if(act==false)
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
+
         //camera system
         float h = 10 * Input.GetAxis("Mouse X");
         cameraRotate.transform.Rotate(0, h, 0);
