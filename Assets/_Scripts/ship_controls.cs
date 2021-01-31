@@ -8,6 +8,7 @@ public class ship_controls : MonoBehaviour
     public float speed;
     public float manuverability;
     public GameObject cameraRotate;
+    public GameObject spray;
 
     private float Sail;
     private float Tack;
@@ -15,6 +16,7 @@ public class ship_controls : MonoBehaviour
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        spray.SetActive(false);
     }
 
     void Update()
@@ -36,16 +38,24 @@ public class ship_controls : MonoBehaviour
         Cursor.visible = false;
 
         //Movement system
-        Sail = Input.GetAxis("Vertical") * speed ;
+        Sail = Input.GetAxis("Vertical") * speed;
         Tack = Input.GetAxis("Horizontal") * manuverability;
 
-        if(Sail < 0)
+        if(Sail > 0)
+        {
+            spray.SetActive(true);
+        }
+        else
+        {
+            spray.SetActive(false);
+        }
+
+        if (Sail < 0)
         {
             Sail = 0;
         }
 
         transform.position -= transform.forward * Sail * Time.deltaTime;
         transform.Rotate(0, Tack * Time.deltaTime, 0);
-
     }
 }
